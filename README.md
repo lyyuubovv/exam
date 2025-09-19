@@ -1,32 +1,43 @@
-Exam project (Django REST Framework) - minimal working project for the news service exam.
+# Exam Project (Django + DRF)
 
-What is included:
-- Custom user model (email as username) with registration and activation via code (console email backend).
-- JWT authentication (SimpleJWT): /auth/login/ and /auth/refresh/
-- Articles app with endpoints:
-    POST /articles/update/  (requires auth) - fetches from NewsAPI and saves new articles (caches update lock for 30 min)
-    GET  /articles/         (public) - list articles, supports filters: fresh=true, title_contains=<str>
-- Swagger UI at /swagger/
+## Установка и запуск
 
-Quick start (Windows):
-1. Create and activate virtual env:
-    python -m venv venv
-    venv\Scripts\activate
+```bash
+git clone  https://github.com/lyyuubovv/exam.git
 
-2. Install requirements:
-    pip install -r requirements.txt
+cd YOUR_REPO_NAME
+pip install -r requirements.txt
+```
 
-3. (Optional) Provide NEWSAPI_KEY in environment or edit exam_project/settings.py:
-    set NEWSAPI_KEY=your_key_here    (Windows CMD)
-    $env:NEWSAPI_KEY="your_key_here" (PowerShell)
+Создайте файл `.env` в корне проекта и вставьте туда:
 
-4. Run migrations and start server:
-    python manage.py migrate
-    python manage.py createsuperuser  # optional
-    python manage.py runserver
+```env
+SECRET_KEY="hdf9eshfseufhues38"
 
-Notes / TODOs:
-- You need to run Redis if you want caching via Redis. Alternatively, change CACHES to LocMemCache in settings for local testing.
-- NewsAPI requires an API key. For testing you can pass api_key in POST body to /articles/update/ or set NEWSAPI_KEY.
-- Migrations are not included (run migrate to generate them).
-- This project is minimal and intended for the exam task only.
+EMAIL_HOST_USER="admin@mail.com"
+EMAIL_HOST_PASSWORD="Exam2025$Admin"
+```
+
+Примените миграции:
+
+```bash
+python manage.py migrate
+```
+
+Создайте суперпользователя:
+
+```bash
+python manage.py createsuperuser
+```
+
+Запустите сервер:
+
+```bash
+python manage.py runserver
+```
+
+Документация API доступна по адресу:
+
+```
+http://127.0.0.1:8000/swagger/
+```
